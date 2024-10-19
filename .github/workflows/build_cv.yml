@@ -1,0 +1,27 @@
+name: Build CV
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up LaTeX
+      run: sudo apt-get install texlive-full
+
+    - name: Compile LaTeX document
+      run: |
+        pdflatex cv.tex
+        pdflatex cv.tex
+
+    - name: Upload PDF
+      uses: actions/upload-artifact@v2
+      with:
+        name: CV
+        path: cv.pdf
